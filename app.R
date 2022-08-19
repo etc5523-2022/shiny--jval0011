@@ -81,7 +81,22 @@ ui <- fluidPage(
 
 server <- function(input, output) {
 
-    output$distPlot <- renderPlot({
+  output$incPlot <- renderPlot({
+    air %>%
+      filter(airline == input$aero, type_of_event == "incidents") %>%
+      ggplot(aes(x = n_events,
+                 y = year_range)) +
+      geom_col(aes(fill = year_range)) +
+      labs(x = "Number of Events",
+           y = "Range of Year") +
+      scale_y_discrete(labels = c("85_99" = "1985 to 1999", "00_14" = "2000 to 2014")) +
+      theme_bw() +
+      theme(legend.position="none")
+
+  })
+
+
+  output$distPlot <- renderPlot({
         ggplot(faithful, aes(waiting)) +
          geom_histogram(bins = input$bins, color = "white") +
          theme_bw(base_size = 14) +
