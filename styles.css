@@ -5,14 +5,21 @@
   border-radius: 5px;
 }
 
-.row {
-  padding: 5px;
-}
 
 h3 {
-  color: #006DAE;
-  font-size: 1.5em;
+  text-align: center;
 }
+
+#aerorate1{
+  text-align: center;
+  font-size: 300%;
+}
+
+#aerorate2{
+  text-align: center;
+  font-size: 300%;
+}
+
 
 details > summary:first-of-type {
     display: list-item;
