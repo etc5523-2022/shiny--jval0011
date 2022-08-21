@@ -2,31 +2,31 @@ library(tidyverse)
 library(shiny)
 library(plotly)
 library(DT)
+library(bslib)
 
-
-# Define UI for application that draws a histogram
+# Define UI for application
 ui <- fluidPage(
 
-  tags$head(
-    tags$style(HTML('.shiny-split-layout>div {overflow: hidden;}')),
-  ),
+  theme = bs_theme(version = 4, bootswatch = "minty"),
 
-  # Application title
-  titlePanel("Is Your Favorite Airline Safe?"),
+  titlePanel("Is Your Favorite Airline✈️ Safe?"),
 
   tabsetPanel(
+    tabPanel("About the App",
+              div(class = "about",
+                  uiOutput('about'))
+    ),
     tabPanel("Compare Mode",
 
-  # Sidebar with options to compare type of events of Airline1 and Airline 2
   sidebarLayout(
     sidebarPanel(
       selectInput("aero1",
                   "Choose a Airline 1:",
-                  unique(air$airline),
+                  unique(air_pic$airline),
                   selected = "Aer Lingus"),
       selectInput("aero2",
                   "Choose a Airline 2:",
-                  unique(air$airline),
+                  unique(air_pic$airline),
                   selected = "Aeroflot"),
       radioButtons("event1",
                    "Types of Event:",
@@ -36,29 +36,35 @@ ui <- fluidPage(
                    selected = "incidents")
     ),
 
-    # showing info of airline 1 and airline 2
     mainPanel(
       splitLayout(
         verticalLayout(
           fluidRow(
             column(8,
                    br(),
-                   h2(textOutput("aeroname1"))),
+                   h1(textOutput("aeroname1"))),
             column(4, uiOutput("aeropic1"))
           ),
           plotlyOutput("incPlot1"),
+          br(),
+          br(),
+          div( class = "rating",
           h3("Rating"),
-          textOutput("aerorate1")),
+          textOutput("aerorate1"))),
         verticalLayout(
           fluidRow(
             column(8,
                    br(),
-                   h2(textOutput("aeroname2"))),
+                   h1(textOutput("aeroname2"))),
             column(4, uiOutput("aeropic2"))
           ),
           plotlyOutput("incPlot2"),
-          h3("Rating"),
-          textOutput("aerorate2"))
+          br(),
+          br(),
+          div(
+            class = "rating",
+            h3("Rating"),
+          textOutput("aerorate2")))
       )
 
     )
@@ -73,18 +79,10 @@ ui <- fluidPage(
                     value = 3)
       ),
 
-      # Show a plot of the generated distribution
       mainPanel(
         DT::dataTableOutput("rat")
       ))
-
-
-
-  )
-
-
-
-  ),
+  )),
   includeCSS("styles.css")
 )
 
@@ -150,13 +148,13 @@ server <- function(input, output, session) {
   })
 
   output$aerorate1 <- reactive({
-    stars1 <- air_stars %>%
+    stars1 <- air_pic %>%
       filter(airline == input$aero1)
     stars1$stars
   })
 
   output$aerorate2 <- reactive({
-    stars2 <- air_stars %>%
+    stars2 <- air_pic %>%
       filter(airline == input$aero2)
     stars2$stars
   })
@@ -164,23 +162,45 @@ server <- function(input, output, session) {
   rateTable <- reactive({
     req(input$rate)
     if(input$rate == 1){
-      rateTable <- rat1
+      rateTable <- air_pic %>%
+        filter(rating == 1) %>%
+        select(airline, pictags) %>%
+        tibble()
     } else if(input$rate == 2){
-      rateTable <- rat2
+      rateTable <- air_pic %>%
+        filter(rating == 2) %>%
+        select(airline, pictags) %>%
+        tibble()
     } else if(input$rate == 3){
-      rateTable <- rat3
+      rateTable <- air_pic %>%
+        filter(rating == 3) %>%
+        select(airline, pictags) %>%
+        tibble()
     } else if(input$rate == 4){
-      rateTable <- rat4
+      rateTable <- air_pic %>%
+        filter(rating == 4) %>%
+        select(airline, pictags) %>%
+        tibble()
     } else if(input$rate == 5){
-      rateTable <- rat5
+      rateTable <-  air_pic %>%
+        filter(rating == 5) %>%
+        select(airline, pictags) %>%
+        tibble()
     }
   })
 
   output$rat <- DT::renderDataTable({
-    DT::datatable(rateTable(), escape = FALSE)
+    DT::datatable(rateTable(),
+                  colnames = c("Airline", "Logo"),
+                  escape = FALSE)
+  })
+
+  output$about <- renderUI({
+    knitr::knit("about.Rmd", quiet = TRUE) %>%
+      markdown::markdownToHTML(fragment.only = TRUE) %>%
+      HTML()
   })
 
 }
 
-# Run the application
 shinyApp(ui = ui, server = server)
