@@ -1,15 +1,16 @@
 ## About the app
 
-**Is Your Favorite Airline✈️ Safe?** is inspired from the article, [Should Travelers Avoid Flying Airlines That Have Had Crashes in the Past?](https://fivethirtyeight.com/features/should-travelers-avoid-flying-airlines-that-have-had-crashes-in-the-past/) by Nate Silver. This article show analysis of airlines' accidents and the rating of airlines safety based on the analysis. 
+**Is Your Favorite Airline✈️ Safe?** is inspired by the article, [Should Travelers Avoid Flying Airlines That Have Had Crashes in the Past?](https://fivethirtyeight.com/features/should-travelers-avoid-flying-airlines-that-have-had-crashes-in-the-past/) by Nate Silver. This article show analysis of airlines' accidents and the rating of airlines' safety based on that analysis. 
 
-Similarly in this app, each of the airline will be rated and can be compared based on the number of accidents happened. 
-There are two modes that user can choose from :
- - **Compare Mode** : Comparing two airlines performance
+Similarly, this app will rate each airline and can be compared based on the number of accidents. 
+There are two modes that users can choose from :
+ - **Compare Mode** : Comparing two airlines' safety
  - **Rating Mode** : Search airlines based on the rating
  
 
 **Disclaimer** : 
 The ratings are calculated based on comparing only within airlines listed in the data set.
+
 Please go to *Data* section for further details about the rating system.
 
 
@@ -17,23 +18,23 @@ Please go to *Data* section for further details about the rating system.
 
 This application use data set sourced from [TidyTuesday](https://github.com/rfordatascience/tidytuesday/tree/master/data/2018/2018-08-07), which has been modified from the original data used in the article [Should Travelers Avoid Flying Airlines That Have Had Crashes in the Past?](https://fivethirtyeight.com/features/should-travelers-avoid-flying-airlines-that-have-had-crashes-in-the-past/) by Nate Silver.
 
-The data contains the information about airlines' accident and number of seat kilometers, focusing on the year 1985-1999 and 2000-2014. The accidents specified in this data are as follows:
+The data contains information about airlines' accidents and the number of seat kilometres, focusing on the year 1985-1999 and 2000-2014. The accidents specified in this data are as follows:
 
-- Incidents : number of incidents happened
-- Fatal Accidents : number of incidents that resulting in the death
+- Incidents : number of incidents that happened
+- Fatal Accidents : number of incidents resulting in the death
 - Fatalities : number of death by the accident
 
-For this application purposes, the data has been modified to calculate the rating of each airline and to display the tail logo of each airlines. The graphics is taken from [AirHex](https://airhex.com/airline-logos/).
+For this app, the data has been modified to calculate each airline's rating and display the tail logo of each airline. The graphics is taken from [AirHex](https://airhex.com/airline-logos/).
 
 **Rating System**
 
 The rating system in this app is calculated as follows:
 
-1. Calculate the average number of each type of incidents for each year range and double the number for the year 2000-2014 to increase the significance of the airlines recent years' performance. Then, subtract the average of each airline from the average of all airlines. Safer airlines results in higher/positive scores.
+1. Calculate the average number of each type of incident for each year range and double the number for the year 2000-2014 to increase the significance of the airlines' recent years' performance. Then, subtract the average of each airline from the average of all airlines. Safer airlines result in higher/positive scores.
 
-2. Multiply the result by the square root of the number of seat kilometers flown. This step give consideration for airline with larger sample of flights.
+2. Multiply the result by the square root of the number of seat kilometres flown. This step considers airlines with a larger sample of flights.
 
-3. The result is aggregated into 5 groups (rating of 1 to 5)
+3. The result is aggregated into five groups (rating of 1 to 5)
 
 
 Please refer to the *data.r* file in this [github](https://github.com/etc5523-2022/shiny--jval0011/tree/main/Data) repository to see how the data set is modified.
@@ -42,10 +43,11 @@ Please refer to the *data.r* file in this [github](https://github.com/etc5523-20
 
 The purpose of the app is to:
 
-1. show the comparison of the airline safety between two different airlines through the number of accidents happened.
+1. show the comparison of airline safety between two airlines through the number of accidents.
 2. provide information about the rating of airlines' safety
 
-This app used interactive components where users can choose their favorite airlines and compare it to other airlines to see the number of incidents, fatal accidents, and fatalities from the year 1985 to 2014. The rating mode let the users choose the rating that will show a list of airlines that belongs to the corresponding rating category.
+This app used interactive components where users can choose their favourite airlines and compare them to other airlines to see the number of incidents, fatal accidents, and fatalities from 1985 to 2014. In addition, the rating mode lets the users choose the rating that will show a list of airlines that belongs to the corresponding rating category.
+
 
 #### Creator
 
