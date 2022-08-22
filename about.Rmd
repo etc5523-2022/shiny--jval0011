@@ -1,22 +1,51 @@
+## About the app
+
+**Is Your Favorite Airline✈️ Safe?** is inspired from the article, [Should Travelers Avoid Flying Airlines That Have Had Crashes in the Past?](https://fivethirtyeight.com/features/should-travelers-avoid-flying-airlines-that-have-had-crashes-in-the-past/) by Nate Silver. This article show analysis of airlines' accidents and the rating of airlines safety based on the analysis. 
+
+Similarly in this app, each of the airline will be rated and can be compared based on the number of accidents happened. 
+There are two modes that user can choose from :
+ - **Compare Mode** : Comparing two airlines performance
+ - **Rating Mode** : Search airlines based on the rating
+ 
+
+**Disclaimer** : 
+The ratings are calculated based on comparing only within airlines listed in the data set.
+Please go to *Data* section for further details about the rating system.
+
 
 #### Data
 
-This data shows the waiting time between eruptions
-and the duration of the eruption for the Old Faithful
-geyser in Yellowstone National Park, Wyoming, USA.
-The data source is from Azzalini & Bowman (1990) 
-*"A look at some data on the Old Faithful geyser." Applied Statistics*, 39, 357–365.
+This application use data set sourced from [TidyTuesday](https://github.com/rfordatascience/tidytuesday/tree/master/data/2018/2018-08-07), which has been modified from the original data used in the article [Should Travelers Avoid Flying Airlines That Have Had Crashes in the Past?](https://fivethirtyeight.com/features/should-travelers-avoid-flying-airlines-that-have-had-crashes-in-the-past/) by Nate Silver.
 
+The data contains the information about airlines' accident and number of seat kilometers, focusing on the year 1985-1999 and 2000-2014. The accidents specified in this data are as follows:
+
+- Incidents : number of incidents happened
+- Fatal Accidents : number of incidents that resulting in the death
+- Fatalities : number of death by the accident
+
+For this application purposes, the data has been modified to calculate the rating of each airline and to display the tail logo of each airlines. The graphics is taken from [AirHex](https://airhex.com/airline-logos/).
+
+**Rating System**
+
+The rating system in this app is calculated as follows:
+
+1. Calculate the average number of each type of incidents for each year range and double the number for the year 2000-2014 to increase the significance of the airlines recent years' performance. Then, subtract the average of each airline from the average of all airlines. Safer airlines results in higher/positive scores.
+
+2. Multiply the result by the square root of the number of seat kilometers flown. This step give consideration for airline with larger sample of flights.
+
+3. The result is aggregated into 5 groups (rating of 1 to 5)
+
+
+Please refer to the *data.r* file in this [github](https://github.com/etc5523-2022/shiny--jval0011/tree/main/Data) repository to see how the data set is modified.
 
 #### Purpose
 
 The purpose of the app is to:
 
-1. show how the number of bins in a histogram reveals/hides the bimodality in the data,
-2. show how the different plot choices make certain features of data more striking, and 
-3. interactively estimate the best parameters for the mixture of two normal distributions to the data. 
+1. show the comparison of the airline safety between two different airlines through the number of accidents happened.
+2. provide information about the rating of airlines' safety
 
-The data showed obvious signs of bimodality (both in the marginal and joint distribution). The app used interactive components to see how the choices in plot elements (e.g. number of bins and plot types) effect the visibility of these features. The last part used an interactive approach for a user to decide the model parameters that fit the data. 
+This app used interactive components where users can choose their favorite airlines and compare it to other airlines to see the number of incidents, fatal accidents, and fatalities from the year 1985 to 2014. The rating mode let the users choose the rating that will show a list of airlines that belongs to the corresponding rating category.
 
 #### Creator
 
